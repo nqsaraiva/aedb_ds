@@ -1,6 +1,7 @@
 
 from tad_list import List
 from nodes import SingleListNode
+from tad_iterator import Iterator
 
 class SinglyLinkedList(List):
     
@@ -34,6 +35,7 @@ class SinglyLinkedList(List):
         node = self.head
         for i in range(position):
             node = node.get_next()
+            return i
         return node.get_element()
     
     # Returns the position in the list of the
@@ -71,46 +73,56 @@ class SinglyLinkedList(List):
         node = self.head
         for i in range(position):
             if node.get_element() == element:
-                insert_first()
+                node.insert_first()
                 return i
             elif node.get_element() != element:
                 node = node.get_next()
+                return i
             elif node.get_next == position:
-                insert_last()
+                node.insert_last()
                 return i
         return node.get_element()
 
     # Removes and returns the element at the first position in the list.
     # Throws EmptyListException.
     def remove_first(self):
+        node = self.head
+        if node.get_element() == node:
+            del node
+        return node.get_element()
 
     # Removes and returns the element at the last position in the list.
     # Throws EmptyListException.
     def remove_last(self):
+        node = self.tail
+        if node.get_element() == node:
+            del node
+        return node.get_element()
     
     # Removes and returns the element at the specified position in the list.
     # Range of valid positions: 0, ..., size()-1.
     # Throws InvalidPositionException.
     def remove(self, position):
+        node = self.head 
+        for i in range(position):
+            node = node.get_next()
+            if node.get_next() == position:
+                del node
+            return node.get_element()
+        return i 
     
     # Removes all elements from the list.
     def make_empty(self):
+        node = self.head
+        while node == self.head:
+            del node
+            node.get_next()
+        return True
 
     # Returns an iterator of the elements in the list (in proper sequence).
-    def iterator(self):
-            
-
-
-       
-    
-
-
-
-
-    
-
-        
-    
-
-
-    
+    def iterator(self): 
+        node = self.head
+        while node is not None:
+            iterator = node.get_next()
+            node = iterator.set_element()
+        return iterator.get_element()
